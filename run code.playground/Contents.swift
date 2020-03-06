@@ -5,7 +5,8 @@ struct Spelling {
 		
 		print(str)
 		
-		return ["the", "quick", "bro", "brown", "fox", "jumped", "over", "the", "lazy", "dog"].contains(str)
+//		return ["the", "quick", "bro", "brown", "fox", "jumped", "over", "the", "lazy", "dog"].contains(str)
+		return ["i", "gave", "you", "the", "chance", "of", "aiding", "me", "willingly"].contains(str)
 	}
 }
 
@@ -19,6 +20,9 @@ func rephrase(phrase: String?, spelling: Spelling, minWordLength: Int) -> String
 //		.replace(/[0-9!@#$%^&*()_+-=\';:",.></?\\|`~" ]/g, "")
 	
 	if rephrasing.count == 0 {
+		if spelling.isCorrect(rephrasing.lowercased()) == false {
+			return nil
+		}
 		if minWordLength < 0 {
 			assertionFailure("max call stack")
 		}
@@ -36,9 +40,11 @@ func rephrase(phrase: String?, spelling: Spelling, minWordLength: Int) -> String
 	
 	var result: String?
 	var nextWord = findWord(rephrasing, spelling, minWordLength)
+	
 	if nextWord != nil {
 		result = ""
 	}
+	
 	while (nextWord != nil) {
 		result! += nextWord!
 		
@@ -64,7 +70,20 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 	for i in minWordLength...phrase.count {
 		let potentialWord = String(phrase.prefix(i))
 		let spellingResult = spelling.isCorrect(potentialWord.lowercased())
-
+		
+		if potentialWord.count == 0 {
+			if minWordLength < 0 {
+				assertionFailure("max call stack")
+			}
+			
+			return nil
+			
+		} else if potentialWord.count == 1 {
+			if potentialWord == "A" {
+				return "a"
+			}
+		}
+		
 		if potentialWord.count >= minWordLength {
 			if spellingResult {
 				return potentialWord.lowercased()
@@ -79,7 +98,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 
 
 
-print("\"" + (rephrase(phrase: "Thequickbrownfoxjumpedoverthelazydog", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
+print("\"" + (rephrase(phrase: "igaveyouthechanceofaidingmewillingly", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
 
 
 

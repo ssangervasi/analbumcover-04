@@ -53,7 +53,8 @@ const rephrase = (
 	return result
 }
 
-function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
+function findWord(phrase: string, spelling: Spelling, minLength: number) {
+	let minWordLength = Math.max(minLength, 2)
 	if (phrase.length < minWordLength) {
 		return null
 	}
@@ -61,23 +62,6 @@ function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 	for (var i = minWordLength; i <= phrase.length; i++) {
 		let potentialWord = phrase.substring(0, i)
 		let spellingResult = spelling.isCorrect(potentialWord.toLocaleLowerCase())
-
-		if (potentialWord.length == 0) {
-			if (spellingResult == false) {
-				return null
-			}
-
-			if (minWordLength < 0) {
-			    throw new RangeError('Maximum call stack size exceeded')
-			}
-			
-			return null
-			
-		} else if (potentialWord.length == 1) {
-			if (potentialWord == 'A') {
-				return 'a'
-			}
-		}
 		
 		if (potentialWord.length >= minWordLength) {
 			if (spellingResult) {

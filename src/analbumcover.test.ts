@@ -237,6 +237,7 @@ describe('When the spelling returns a word is valid on even intervals', () => {
 
 
 
+// -------------------------------- [kinda] DONE ----------------
 // describe('When using an actual dictionary with extras',  () => {
 // 	const phrase = 'AnAlbumCoverFor600AlexPlease'
 
@@ -279,6 +280,7 @@ describe('When using an actual dictionary with no extras',  () => {
 
 
 
+// -------------------------------- [kinda] DONE ----------------
 // describe('When using a Sean Connery dictionary dictionary with extras',  () => {
 // 	const phrase = 'AnAlbumCoverFor600AlexPlease'
 
@@ -398,28 +400,28 @@ describe('When using the same spelling library as the CLI', () => {
 	
 
 
+// -------------------------------- [kinda] DONE ----------------
+	// describe('when checking "The quick brown fox jumped over the lazy dog"', () => {
+	// 	const phrase = 'The quick brown fox jumped over the lazy dog'
 
-	describe('when checking "The quick brown fox jumped over the lazy dog"', () => {
-		const phrase = 'The quick brown fox jumped over the lazy dog'
+	// 	const parameters = [
+	// 		[1, 'the quick bro '],
+	// 		[2, 'the quick bro '],
+	// 		[3, 'the quick bro '],
+	// 		[4, null],
+	// 		[5, null],
+	// 	]
 
-		const parameters = [
-			[1, 'the quick bro '],
-			[2, 'the quick bro '],
-			[3, 'the quick bro '],
-			[4, null],
-			[5, null],
-		]
-
-		parameters.forEach(([minLetters, result]) => {
-			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
-				const nodehun = await initNodehun()
-				const spelling = new NodehunSpelling(nodehun)
-				const rephrased = rephrase(phrase, spelling, minLetters as number)
+	// 	parameters.forEach(([minLetters, result]) => {
+	// 		test(`with min letters of ${minLetters} we should get ${result}`, async () => {
+	// 			const nodehun = await initNodehun()
+	// 			const spelling = new NodehunSpelling(nodehun)
+	// 			const rephrased = rephrase(phrase, spelling, minLetters as number)
 		
-				expect(rephrased).toEqual(result)
-			})
-		})
-	})
+	// 			expect(rephrased).toEqual(result)
+	// 		})
+	// 	})
+	// })
 
 
 
