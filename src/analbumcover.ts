@@ -12,8 +12,31 @@ const rephrase = (
 	var rephrasing = phrase
 		.replace(/[0-9!@#$%^&*()_+-=\';:",.></?\\|`~" ]/g, "")
 
-	var result = ""
+	if (rephrasing.length == 0) {
+		if (spelling.isCorrect(rephrasing.toLocaleLowerCase()) == false) {
+			return null
+		}
+
+		if (minWordLength < 0) {
+		    throw new RangeError('Maximum call stack size exceeded')
+		}
+		
+		return null
+		
+	} else if (rephrasing.length == 1) {
+		if (rephrasing == 'A') {
+			return 'a'
+		}
+
+		return null
+	}
+
+	var result = null
 	var nextWord = findWord(rephrasing, spelling, minWordLength)
+	
+	if (nextWord != null) {
+		result = ""
+	}
 
 	while (nextWord != null) {
 		result += nextWord
@@ -27,7 +50,7 @@ const rephrase = (
 		result += " "
 	}
 	
-	return null
+	return result
 }
 
 function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
@@ -47,19 +70,15 @@ function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 			if (minWordLength < 0) {
 			    throw new RangeError('Maximum call stack size exceeded')
 			}
+			
 			return null
 			
 		} else if (potentialWord.length == 1) {
 			if (potentialWord == 'A') {
 				return 'a'
 			}
-			if (spellingResult == false) {
-				return null
-			}
-
-			return null
 		}
-
+		
 		if (potentialWord.length >= minWordLength) {
 			if (spellingResult) {
 				return potentialWord.toLocaleLowerCase()
