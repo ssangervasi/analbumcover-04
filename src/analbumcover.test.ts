@@ -133,7 +133,7 @@ describe('rephrase when the word length is greater than the phrase length', () =
 
 
 // -------------------------------- DONE ----------------
-describe('for single character string', () => {//DONE
+describe('for single character string', () => {
 	describe('the A character is a valid character phrase', () => {
 		const letter = 'A'
 
@@ -189,68 +189,70 @@ describe('rephrase when the word length is equal than the phrase length, and gre
 
 
 
-// describe('when output would be the same as the input', () => {
-// 	class FourLetterWords implements Spelling {
-// 		constructor() { }
+// -------------------------------- DONE ----------------
+describe('when output would be the same as the input', () => {
+	class FourLetterWords implements Spelling {
+		constructor() { }
 
-// 		isCorrect(word: string): boolean {
-// 			return word.length == 4
-// 		}
-// 	}
+		isCorrect(word: string): boolean {
+			return word.length == 4
+		}
+	}
 
-// 	test('that null is returned', () => {
-// 		const rephrased = rephrase('some word pair', new FourLetterWords, 4)
-// 		expect(rephrased).toBeNull
-// 	})
-// })
-
-
+	test('that null is returned', () => {
+		const rephrased = rephrase('some word pair', new FourLetterWords, 4)
+		expect(rephrased).toBeNull
+	})
+})
 
 
-// describe('When the spelling returns a word is valid on even intervals', () => {
-// 	for( var i = 2; i < 10; i++) {
-// 		const wordSize = i
-// 		class ConsistentWords implements Spelling {
-// 			constructor(private size: number) { }
+
+
+// -------------------------------- DONE ----------------
+describe('When the spelling returns a word is valid on even intervals', () => {
+	for (var i = 2; i < 10; i++) {
+		const wordSize = i
+		class ConsistentWords implements Spelling {
+			constructor(private size: number) { }
 	
-// 			isCorrect(word: string): boolean {
-// 				return word.length == this.size
-// 			}
-// 		}
-// 		for (var j = wordSize * 2; j < wordSize * 10; j++) {
-// 			const length = j
-// 			const str = makeGoodString(length)
+			isCorrect(word: string): boolean {
+				return word.length == this.size
+			}
+		}
+		for (var j = wordSize * 2; j < wordSize * 10; j++) {
+			const length = j
+			const str = makeGoodString(length)
 	
-// 			test(`the ${str} phrase should be broken up in sets of ${wordSize}`, () => {
-// 				const rephrased = rephrase(str, new ConsistentWords(wordSize), wordSize)
-// 				expect(rephrase).not.toBeNull
+			test(`the ${str} phrase should be broken up in sets of ${wordSize}`, () => {
+				const rephrased = rephrase(str, new ConsistentWords(wordSize), wordSize)
+				expect(rephrased).not.toBeNull // fixed typo here
 	
-// 				const words = rephrased!!.split(' ')
-// 				expect(words.length).toEqual(Math.floor(str.length / wordSize))
-// 			})
-// 		}
-// 	}
-// })
+				const words = rephrased!!.split(' ')
+				expect(words.length).toEqual(Math.floor(str.length / wordSize))
+			})
+		}
+	}
+})
 
 
 
 
-// describe('When using an actual dictionary with extras',  () => {
-// 	const phrase = 'AnAlbumCoverFor600AlexPlease'
+describe('When using an actual dictionary with extras',  () => {
+	const phrase = 'AnAlbumCoverFor600AlexPlease'
 
-// 	class TrebekSpelling implements Spelling {
-// 		constructor() { }
+	class TrebekSpelling implements Spelling {
+		constructor() { }
 
-// 		isCorrect(word: string): boolean {
-// 			return ['an', 'album', 'cover', 'for', 'alex'].includes(word)
-// 		}
-// 	}
+		isCorrect(word: string): boolean {
+			return ['an', 'album', 'cover', 'for', 'alex'].includes(word)
+		}
+	}
 
-// 	test('real words should be pulled out and a space denoting extras existed', () => {
-// 		const rephrased = rephrase(phrase, new TrebekSpelling, 2)
-// 		expect(rephrased).toEqual('an album cover for alex ')
-// 	})
-// })
+	test('real words should be pulled out and a space denoting extras existed', () => {
+		const rephrased = rephrase(phrase, new TrebekSpelling, 2)
+		expect(rephrased).toEqual('an album cover for alex ')
+	})
+})
 
 
 

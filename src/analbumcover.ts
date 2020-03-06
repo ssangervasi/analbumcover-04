@@ -9,54 +9,65 @@ const rephrase = (
 		return null
 	}
 
-	// badCharacters = '0123456789!@#$%^&*()_+-=\';:",.></?\\|`~" '
-
-	let rephrasing = phrase
+	var rephrasing = phrase
 		.replace(/[0-9!@#$%^&*()_+-=\';:",.></?\\|`~" ]/g, "")
 
-	if (rephrasing.length < minWordLength) {
+	var result = ""
+	var nextWord = findWord(rephrasing, spelling, minWordLength)
+
+	while (nextWord != null) {
+		result += nextWord
+
+		rephrasing = rephrasing.substring(nextWord.length, rephrasing.length)
+		nextWord = findWord(rephrasing, spelling, minWordLength)
+
+		if (nextWord == null) {
+			return result
+		}
+		result += " "
+	}
+	
+	return null
+}
+
+function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
+	if (phrase.length < minWordLength) {
 		return null
 	}
 
-	let spellingResult = spelling.isCorrect(rephrasing)
+	for (var i = minWordLength; i <= phrase.length; i++) {
+		let potentialWord = phrase.substring(0, i)
+		let spellingResult = spelling.isCorrect(potentialWord.toLocaleLowerCase())
 
-	if (rephrasing.length == 0) {
-		if (spellingResult == false) {
+		if (potentialWord.length == 0) {
+			if (spellingResult == false) {
+				return null
+			}
+
+			if (minWordLength < 0) {
+			    throw new RangeError('Maximum call stack size exceeded')
+			}
+			return null
+			
+		} else if (potentialWord.length == 1) {
+			if (potentialWord == 'A') {
+				return 'a'
+			}
+			if (spellingResult == false) {
+				return null
+			}
+
 			return null
 		}
 
-		if (minWordLength < 0) {
-		    throw new RangeError('Maximum call stack size exceeded')
+		if (potentialWord.length >= minWordLength) {
+			if (spellingResult) {
+				return potentialWord.toLocaleLowerCase()
+			}
 		}
-		return null
-		
-	} else if (rephrasing.length == 1) {
-		if (rephrasing == 'A') {
-			return 'a'
-		}
-		if (spellingResult == false) {
-			return null
-		}
-
-		return null
 	}
 
-	if (rephrasing.length == minWordLength) {
-		if (spellingResult) {
-			return rephrasing.toLocaleLowerCase()
-		} else {
-			return null
-		}
-	}
-
-
-	rephrasing = rephrasing.replace(/(?<=[sS]h)ea/g, 'aw')
-
-	return rephrasing
-
-	// 'with a non-negative word length an empty string will return null when it is marked valid'
-	// 'The word length is ignored when the spelling is always false'
-	// 'with a negative word length and an always true spelling check it will throw an exception'
+	return null
 }
 
 export {
