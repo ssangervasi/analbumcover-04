@@ -38,17 +38,16 @@ const rephrase = (
 		result = ""
 	}
 
-	while (nextWord != null && rephrasing.length >= minWordLength) {
+	while (nextWord != null && nextWord.length > 0) {
+		let noSpaces = nextWord.replace(" ", "")
 		result += nextWord
 
-		rephrasing = rephrasing.substring(nextWord.length, rephrasing.length)
+		rephrasing = rephrasing.substring(noSpaces.length, rephrasing.length)
 		nextWord = findWord(rephrasing, spelling, minWordLength)
 
 		if (nextWord == null) {
 			return result
 		}
-
-		result += " "
 	}
 	
 	return result
@@ -69,10 +68,15 @@ function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 			}
 		}
 
-		if (potentialWord.length >= minWordLength) {
-			if (spellingResult) {
-				return potentialWord.toLocaleLowerCase()
+		if (spellingResult) {
+			let remainingLetters = phrase.length - potentialWord.length
+			if (remainingLetters > 0 && remainingLetters < minWordLength) {
+				return ""
 			}
+			if (remainingLetters > 0) {
+				return potentialWord.toLocaleLowerCase() + " "
+			}
+			return potentialWord.toLocaleLowerCase()
 		}
 	}
 

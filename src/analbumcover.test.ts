@@ -3,7 +3,6 @@ import {
 } from './analbumcover'
 
 import { initNodehun, NodehunSpelling, Spelling } from './spelling'
-// import { Spelling } from './spelling'
 
 class AlwaysTrueSpelling implements Spelling {
 	constructor() { }
@@ -52,10 +51,6 @@ function makeGoodString(length: number): string {
 	return result
 }
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('rephrase with an empty string', () => {
 	const str = ''
 	const nonNegativeWordLengths = [0, 1, 2, 3]
@@ -82,10 +77,6 @@ describe('rephrase with an empty string', () => {
 	})
 })
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('rephrase with non alpha numeric values', () => {
 	for (var i = 1; i < 25; i++) {
 		const length = i
@@ -108,10 +99,6 @@ describe('rephrase with non alpha numeric values', () => {
 	}
 })
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('rephrase when the word length is greater than the phrase length', () => {
 	for (var i = 1; i < 25; i++) {
 		const length = i
@@ -129,10 +116,6 @@ describe('rephrase when the word length is greater than the phrase length', () =
 	}
 })
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('for single character string', () => {
 	describe('the A character is a valid character phrase', () => {
 		const letter = 'A'
@@ -165,10 +148,6 @@ describe('for single character string', () => {
 	})
 })
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('rephrase when the word length is equal than the phrase length, and greater than one', () => {
 	for (var i = 2; i < 25; i++) {
 		const length = i
@@ -186,10 +165,6 @@ describe('rephrase when the word length is equal than the phrase length, and gre
 	}
 })
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('when output would be the same as the input', () => {
 	class FourLetterWords implements Spelling {
 		constructor() { }
@@ -205,10 +180,6 @@ describe('when output would be the same as the input', () => {
 	})
 })
 
-
-
-
-// -------------------------------- DONE ----------------
 describe('When the spelling returns a word is valid on even intervals', () => {
 	for (var i = 2; i < 10; i++) {
 		const wordSize = i
@@ -234,32 +205,23 @@ describe('When the spelling returns a word is valid on even intervals', () => {
 	}
 })
 
+describe('When using an actual dictionary with extras',  () => {
+	const phrase = 'AnAlbumCoverFor600AlexPlease'
 
+	class TrebekSpelling implements Spelling {
+		constructor() { }
 
+		isCorrect(word: string): boolean {
+			return ['an', 'album', 'cover', 'for', 'alex'].includes(word)
+		}
+	}
 
-// -------------------------------- [kinda] DONE ----------------
-// describe('When using an actual dictionary with extras',  () => {
-// 	const phrase = 'AnAlbumCoverFor600AlexPlease'
+	test('real words should be pulled out and a space denoting extras existed', () => {
+		const rephrased = rephrase(phrase, new TrebekSpelling, 2)
+		expect(rephrased).toEqual('an album cover for alex ')
+	})
+})
 
-// 	class TrebekSpelling implements Spelling {
-// 		constructor() { }
-
-// 		isCorrect(word: string): boolean {
-// 			return ['an', 'album', 'cover', 'for', 'alex'].includes(word)
-// 		}
-// 	}
-
-// 	test('real words should be pulled out and a space denoting extras existed', () => {
-// 		const rephrased = rephrase(phrase, new TrebekSpelling, 2)
-// 		expect(rephrased).toEqual('an album cover for alex ')
-// 	})
-// })
-
-
-
-
-
-// -------------------------------- DONE ----------------
 describe('When using an actual dictionary with no extras',  () => {
 	const phrase = 'AnAlbumCoverFor600Alex!'
 
@@ -277,31 +239,23 @@ describe('When using an actual dictionary with no extras',  () => {
 	})
 })
 
+describe('When using a Sean Connery dictionary dictionary with extras',  () => {
+	const phrase = 'AnAlbumCoverFor600AlexPlease'
 
+	class TrebekSpelling implements Spelling {
+		constructor() { }
 
+		isCorrect(word: string): boolean {
+			return ['anal', 'bum', 'cover', 'for', 'alex'].includes(word)
+		}
+	}
 
-// -------------------------------- [kinda] DONE ----------------
-// describe('When using a Sean Connery dictionary dictionary with extras',  () => {
-// 	const phrase = 'AnAlbumCoverFor600AlexPlease'
+	test('real words should be pulled out and a space denoting extras existed', () => {
+		const rephrased = rephrase(phrase, new TrebekSpelling, 2)
+		expect(rephrased).toEqual('anal bum cover for alex ')
+	})
+})
 
-// 	class TrebekSpelling implements Spelling {
-// 		constructor() { }
-
-// 		isCorrect(word: string): boolean {
-// 			return ['anal', 'bum', 'cover', 'for', 'alex'].includes(word)
-// 		}
-// 	}
-
-// 	test('real words should be pulled out and a space denoting extras existed', () => {
-// 		const rephrased = rephrase(phrase, new TrebekSpelling, 2)
-// 		expect(rephrased).toEqual('anal bum cover for alex ')
-// 	})
-// })
-
-
-
-
-// -------------------------------- DONE ----------------
 describe('When using a Sean Connery dictionary with no extras',  () => {
 	const phrase = 'AnAlbumCoverFor600Alex'
 
@@ -320,9 +274,8 @@ describe('When using a Sean Connery dictionary with no extras',  () => {
 })
 
 
-
-
 describe('When using the same spelling library as the CLI', () => {
+// -------------------------------- [kinda] MISSING ----------------
 	// describe('when checking "An Album Cover For 600 Alex"', () => {
 	// 	const phrase = 'An Album Cover For 600 Alex!'
 
@@ -349,7 +302,7 @@ describe('When using the same spelling library as the CLI', () => {
 
 
 
-// -------------------------------- [mostly?] DONE ----------------
+// -------------------------------- [kinda] MISSING ----------------
 	// describe('when checking "An Album Cover" we get different results than having more after the word cover', () => {
 	// 	const phrase = 'An Album Cover'
 
@@ -375,7 +328,7 @@ describe('When using the same spelling library as the CLI', () => {
 
 
 
-// -------------------------------- [kinda] DONE ----------------
+// -------------------------------- [kinda] MISSING ----------------
 	// describe('when checking "An Album Cover F" we get different results than having many more words after the word cover', () => {
 	// 	const phrase = 'An Album Cover F'
 
@@ -399,35 +352,28 @@ describe('When using the same spelling library as the CLI', () => {
 	// 	})
 	// })
 	
+	describe('when checking "The quick brown fox jumped over the lazy dog"', () => {
+		const phrase = 'The quick brown fox jumped over the lazy dog'
 
+		const parameters = [
+			[1, 'the quick bro '],
+			[2, 'the quick bro '],
+			[3, 'the quick bro '],
+			[4, null],
+			[5, null],
+		]
 
-// -------------------------------- [kinda] DONE ----------------
-	// describe('when checking "The quick brown fox jumped over the lazy dog"', () => {
-	// 	const phrase = 'The quick brown fox jumped over the lazy dog'
-
-	// 	const parameters = [
-	// 		[1, 'the quick bro '],
-	// 		[2, 'the quick bro '],
-	// 		[3, 'the quick bro '],
-	// 		[4, null],
-	// 		[5, null],
-	// 	]
-
-	// 	parameters.forEach(([minLetters, result]) => {
-	// 		test(`with min letters of ${minLetters} we should get ${result}`, async () => {
-	// 			const nodehun = await initNodehun()
-	// 			const spelling = new NodehunSpelling(nodehun)
-	// 			const rephrased = rephrase(phrase, spelling, minLetters as number)
+		parameters.forEach(([minLetters, result]) => {
+			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
+				const nodehun = await initNodehun()
+				const spelling = new NodehunSpelling(nodehun)
+				const rephrased = rephrase(phrase, spelling, minLetters as number)
 		
-	// 			expect(rephrased).toEqual(result)
-	// 		})
-	// 	})
-	// })
+				expect(rephrased).toEqual(result)
+			})
+		})
+	})
 
-
-
-
-// -------------------------------- DONE ----------------
 	describe('when checking "I gave you the chance of aiding me willingly, but you have elected the way of pain."', () => {
 		const phrase = 'I gave you the chance of aiding me willingly, but you have elected the way of pain.'
 
@@ -446,36 +392,29 @@ describe('When using the same spelling library as the CLI', () => {
 			})
 		})
 	})
+	
+	describe('when checking "\'Poor attack, you chump! Ire!\'"', () => {
+		const phrase = "'Poor attack, you chump! Ire!'"
 
+		const parameters = [
+			[1, 'poo rat ta ck yo '],
+			[2, 'poo rat ta ck yo '],
+			[3, 'poo rat tack you chum '],
+			[4, 'poor attack '],
+			[5, null],
+			[6, null],
+		]
 
-
-
-// -------------------------------- [kinda] DONE ----------------
-// 	describe('when checking "\'Poor attack, you chump! Ire!\'"', () => {
-// 		const phrase = "'Poor attack, you chump! Ire!'"
-
-// 		const parameters = [
-// 			[1, 'poo rat ta ck yo '],
-// 			[2, 'poo rat ta ck yo '],
-// 			[3, 'poo rat tack you chum '],
-// 			[4, 'poor attack '],
-// 			[5, null],
-// 			[6, null],
-// 		]
-
-// 		parameters.forEach(([minLetters, result]) => {
-// 			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
-// 				const nodehun = await initNodehun()
-// 				const spelling = new NodehunSpelling(nodehun)
-// 				const rephrased = rephrase(phrase, spelling, minLetters as number)
+		parameters.forEach(([minLetters, result]) => {
+			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
+				const nodehun = await initNodehun()
+				const spelling = new NodehunSpelling(nodehun)
+				const rephrased = rephrase(phrase, spelling, minLetters as number)
 		
-// 				expect(rephrased).toEqual(result)
-// 			})
-// 		})
-// 	})
-
-
-
+				expect(rephrased).toEqual(result)
+			})
+		})
+	})
 
 	describe('when the remaining letters after finding a word is less than the min letter count, we should throw words away', () => {
 		const parameters = [

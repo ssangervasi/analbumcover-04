@@ -5,7 +5,7 @@ struct Spelling {
 		
 		print(str)
 		
-		return ["the", "quick", "bro", "brown", "fox", "jumped", "over", "the", "lazy", "dog", "i", "gave", "you", "the", "chance", "of", "aiding", "me", "willingly", "an", "album", "anal", "bum", "cover", "for", "alex"].contains(str)
+		return ["the", "quick", "bro", "brown", "fox", "jumped", "over", "the", "lazy", "dog", "i", "gave", "you", "the", "chance", "of", "aiding", "me", "willingly", "an", "album", "anal", "bum", "cover", "for", "alex", "poor", "attack", "your", "self", "yourself"].contains(str)
 	}
 }
 
@@ -44,21 +44,15 @@ func rephrase(phrase: String?, spelling: Spelling, minWordLength: Int) -> String
 		result = ""
 	}
 	
-	while (nextWord != nil) {
+	while ((nextWord?.count ?? 0) > 0) {
+		let noSpaces = nextWord!.replacingOccurrences(of: " ", with: "")
 		result! += nextWord!
 		
-		let newLength = rephrasing.count - nextWord!.count
+		let newLength = rephrasing.count - noSpaces.count
 		rephrasing = String(rephrasing.suffix(newLength))
 		nextWord = findWord(rephrasing, spelling, minWordLength)
 		
 		if (nextWord == nil) {
-			return result
-		}
-		
-		result! += " "
-		
-		guard rephrasing.count >= minWordLength else {
-			print("exit")
 			return result
 		}
 	}
@@ -81,10 +75,16 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 			}
 		}
 		
-		if potentialWord.count >= minWordLength {
-			if spellingResult {
-				return potentialWord.lowercased()
+		
+		if spellingResult {
+			let remainingLetters = phrase.count - potentialWord.count
+			if remainingLetters > 0 && remainingLetters < minWordLength {
+				return " "
 			}
+			if remainingLetters > 0 {
+				return potentialWord.lowercased() + " "
+			}
+			return potentialWord.lowercased()
 		}
 	}
 
@@ -95,7 +95,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 
 
 
-print("\"" + (rephrase(phrase: "Thequickbrownfoxjumpedoverthelazydog", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
+print("\"" + (rephrase(phrase: "Poorattackyourselfquic", spelling: Spelling(), minWordLength: 4) ?? "-1") + "\"")
 
 
 
