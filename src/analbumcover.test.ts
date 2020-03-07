@@ -303,7 +303,7 @@ describe('When using the same spelling library as the CLI', () => {
 		const parameters = [
 			[1, 'a '],
 			[2, 'an alb um co '],
-			[3, 'anal bum cover'],// JUST THIS IS BROKEN NOW!!
+			[3, 'anal bum cover'],
 			[4, 'anal '],
 			[5, null],
 			[6, null]

@@ -73,10 +73,7 @@ function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 			if (remainingLetters > 0 && remainingLetters < minWordLength) {
 				return ""
 			}
-			if (remainingLetters > 0) {
-				return potentialWord.toLocaleLowerCase() + " "
-			}
-			return potentialWord.toLocaleLowerCase()
+			return potentialWord.toLocaleLowerCase() + (remainingLetters > 0 ? " " : "")
 		}
 	}
 

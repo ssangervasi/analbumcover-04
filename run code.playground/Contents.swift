@@ -81,10 +81,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 			if remainingLetters > 0 && remainingLetters < minWordLength {
 				return " "
 			}
-			if remainingLetters > 0 {
-				return potentialWord.lowercased() + " "
-			}
-			return potentialWord.lowercased()
+			return potentialWord.lowercased() + (remainingLetters > 0 ? " " : "")
 		}
 	}
 
@@ -95,7 +92,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 
 
 
-print("\"" + (rephrase(phrase: "AnAlbumCoverForAlex", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
+print("\"" + (rephrase(phrase: "AnAlbumCover", spelling: Spelling(), minWordLength: 3) ?? "-1") + "\"")
 
 
 
