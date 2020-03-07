@@ -18,14 +18,14 @@ const rephrase = (
 		}
 
 		if (minWordLength < 0) {
-		    throw new RangeError('Maximum call stack size exceeded')
+		    throw new RangeError("Maximum call stack size exceeded")
 		}
 		
 		return null
 		
 	} else if (rephrasing.length == 1) {
-		if (rephrasing == 'A') {
-			return 'a'
+		if (rephrasing == "A") {
+			return "a"
 		}
 
 		return null
@@ -63,8 +63,8 @@ function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 		let spellingResult = spelling.isCorrect(potentialWord.toLocaleLowerCase()) && potentialWord.length > 1
 		
 		if (potentialWord.length == 1) {
-			if (potentialWord == 'A') {
-				return 'a'
+			if (potentialWord == "A") {
+				return "a" + (phrase.length - 1 > 0 ? " " : "")
 			}
 		}
 

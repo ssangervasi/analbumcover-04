@@ -71,7 +71,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 		
 		if potentialWord.count == 1 {
 			if potentialWord == "A" {
-				return "a"
+				return "a" + (phrase.count - 1 > 0 ? " " : "")
 			}
 		}
 		
@@ -95,7 +95,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 
 
 
-print("\"" + (rephrase(phrase: "Poorattackyourselfquic", spelling: Spelling(), minWordLength: 4) ?? "-1") + "\"")
+print("\"" + (rephrase(phrase: "AnAlbumCoverForAlex", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
 
 
 

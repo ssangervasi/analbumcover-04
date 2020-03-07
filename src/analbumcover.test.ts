@@ -273,84 +273,75 @@ describe('When using a Sean Connery dictionary with no extras',  () => {
 	})
 })
 
-
 describe('When using the same spelling library as the CLI', () => {
-// -------------------------------- [kinda] MISSING ----------------
-	// describe('when checking "An Album Cover For 600 Alex"', () => {
-	// 	const phrase = 'An Album Cover For 600 Alex!'
+	describe('when checking "An Album Cover For 600 Alex"', () => {
+		const phrase = 'An Album Cover For 600 Alex!'
 
-	// 	const parameters = [
-	// 		[1, 'a '],
-	// 		[2, 'an alb um co '],
-	// 		[3, 'anal bum cove '],
-	// 		[4, 'anal '],
-	// 		[5, null],
-	// 		[6, null]
-	// 	]
+		const parameters = [
+			[1, 'a '],
+			[2, 'an alb um co '],
+			[3, 'anal bum cove '],
+			[4, 'anal '],
+			[5, null],
+			[6, null]
+		]
 
-	// 	parameters.forEach(([minLetters, result]) => {
-	// 		test(`with min letters of ${minLetters} we should get ${result}`, async () => {
-	// 			const nodehun = await initNodehun()
-	// 			const spelling = new NodehunSpelling(nodehun)
-	// 			const rephrased = rephrase(phrase, spelling, minLetters as number)
+		parameters.forEach(([minLetters, result]) => {
+			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
+				const nodehun = await initNodehun()
+				const spelling = new NodehunSpelling(nodehun)
+				const rephrased = rephrase(phrase, spelling, minLetters as number)
 		
-	// 			expect(rephrased).toEqual(result)
-	// 		})
-	// 	})
-	// })
+				expect(rephrased).toEqual(result)
+			})
+		})
+	})
 
+	describe('when checking "An Album Cover" we get different results than having more after the word cover', () => {
+		const phrase = 'An Album Cover'
 
+		const parameters = [
+			[1, 'a '],
+			[2, 'an alb um co '],
+			[3, 'anal bum cover'],// JUST THIS IS BROKEN NOW!!
+			[4, 'anal '],
+			[5, null],
+			[6, null]
+		]
 
-
-// -------------------------------- [kinda] MISSING ----------------
-	// describe('when checking "An Album Cover" we get different results than having more after the word cover', () => {
-	// 	const phrase = 'An Album Cover'
-
-	// 	const parameters = [
-	// 		[1, 'a '],
-	// 		[2, 'an alb um co '],
-	// 		[3, 'anal bum cover'],
-	// 		[4, 'anal '],
-	// 		[5, null],
-	// 		[6, null]
-	// 	]
-
-	// 	parameters.forEach(([minLetters, result]) => {
-	// 		test(`with min letters of ${minLetters} we should get ${result}`, async () => {
-	// 			const nodehun = await initNodehun()
-	// 			const spelling = new NodehunSpelling(nodehun)
-	// 			const rephrased = rephrase(phrase, spelling, minLetters as number)
+		parameters.forEach(([minLetters, result]) => {
+			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
+				const nodehun = await initNodehun()
+				const spelling = new NodehunSpelling(nodehun)
+				const rephrased = rephrase(phrase, spelling, minLetters as number)
 		
-	// 			expect(rephrased).toEqual(result)
-	// 		})
-	// 	})
-	// })
+				expect(rephrased).toEqual(result)
+			})
+		})
+	})
 
+	describe('when checking "An Album Cover F" we get different results than having many more words after the word cover', () => {
+		const phrase = 'An Album Cover F'
 
+		const parameters = [
+			[1, 'a '],
+			[2, 'an alb um co '],
+			[3, 'anal bum '],
+			[4, 'anal '],
+			[5, null],
+			[6, null]
+		]
 
-// -------------------------------- [kinda] MISSING ----------------
-	// describe('when checking "An Album Cover F" we get different results than having many more words after the word cover', () => {
-	// 	const phrase = 'An Album Cover F'
-
-	// 	const parameters = [
-	// 		[1, 'a '],
-	// 		[2, 'an alb um co '],
-	// 		[3, 'anal bum '],
-	// 		[4, 'anal '],
-	// 		[5, null],
-	// 		[6, null]
-	// 	]
-
-	// 	parameters.forEach(([minLetters, result]) => {
-	// 		test(`with min letters of ${minLetters} we should get ${result}`, async () => {
-	// 			const nodehun = await initNodehun()
-	// 			const spelling = new NodehunSpelling(nodehun)
-	// 			const rephrased = rephrase(phrase, spelling, minLetters as number)
+		parameters.forEach(([minLetters, result]) => {
+			test(`with min letters of ${minLetters} we should get ${result}`, async () => {
+				const nodehun = await initNodehun()
+				const spelling = new NodehunSpelling(nodehun)
+				const rephrased = rephrase(phrase, spelling, minLetters as number)
 		
-	// 			expect(rephrased).toEqual(result)
-	// 		})
-	// 	})
-	// })
+				expect(rephrased).toEqual(result)
+			})
+		})
+	})
 	
 	describe('when checking "The quick brown fox jumped over the lazy dog"', () => {
 		const phrase = 'The quick brown fox jumped over the lazy dog'
