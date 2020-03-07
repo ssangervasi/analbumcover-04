@@ -38,7 +38,7 @@ const rephrase = (
 		result = ""
 	}
 
-	while (nextWord != null) {
+	while (nextWord != null && rephrasing.length >= minWordLength) {
 		result += nextWord
 
 		rephrasing = rephrasing.substring(nextWord.length, rephrasing.length)
@@ -47,22 +47,28 @@ const rephrase = (
 		if (nextWord == null) {
 			return result
 		}
+
 		result += " "
 	}
 	
 	return result
 }
 
-function findWord(phrase: string, spelling: Spelling, minLength: number) {
-	let minWordLength = Math.max(minLength, 2)
+function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 	if (phrase.length < minWordLength) {
 		return null
 	}
 
 	for (var i = minWordLength; i <= phrase.length; i++) {
 		let potentialWord = phrase.substring(0, i)
-		let spellingResult = spelling.isCorrect(potentialWord.toLocaleLowerCase())
+		let spellingResult = spelling.isCorrect(potentialWord.toLocaleLowerCase()) && potentialWord.length > 1
 		
+		if (potentialWord.length == 1) {
+			if (potentialWord == 'A') {
+				return 'a'
+			}
+		}
+
 		if (potentialWord.length >= minWordLength) {
 			if (spellingResult) {
 				return potentialWord.toLocaleLowerCase()

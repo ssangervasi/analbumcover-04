@@ -5,8 +5,7 @@ struct Spelling {
 		
 		print(str)
 		
-//		return ["the", "quick", "bro", "brown", "fox", "jumped", "over", "the", "lazy", "dog"].contains(str)
-		return ["i", "gave", "you", "the", "chance", "of", "aiding", "me", "willingly"].contains(str)
+		return ["the", "quick", "bro", "brown", "fox", "jumped", "over", "the", "lazy", "dog", "i", "gave", "you", "the", "chance", "of", "aiding", "me", "willingly", "an", "album", "anal", "bum", "cover", "for", "alex"].contains(str)
 	}
 }
 
@@ -48,7 +47,7 @@ func rephrase(phrase: String?, spelling: Spelling, minWordLength: Int) -> String
 	while (nextWord != nil) {
 		result! += nextWord!
 		
-		let newLength = rephrasing.count - (nextWord!.replacingOccurrences(of: " ", with: "")).count
+		let newLength = rephrasing.count - nextWord!.count
 		rephrasing = String(rephrasing.suffix(newLength))
 		nextWord = findWord(rephrasing, spelling, minWordLength)
 		
@@ -57,6 +56,11 @@ func rephrase(phrase: String?, spelling: Spelling, minWordLength: Int) -> String
 		}
 		
 		result! += " "
+		
+		guard rephrasing.count >= minWordLength else {
+			print("exit")
+			return result
+		}
 	}
 	
 	return result
@@ -69,16 +73,9 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 	
 	for i in minWordLength...phrase.count {
 		let potentialWord = String(phrase.prefix(i))
-		let spellingResult = spelling.isCorrect(potentialWord.lowercased())
+		let spellingResult = spelling.isCorrect(potentialWord.lowercased()) && potentialWord.count > 1
 		
-		if potentialWord.count == 0 {
-			if minWordLength < 0 {
-				assertionFailure("max call stack")
-			}
-			
-			return nil
-			
-		} else if potentialWord.count == 1 {
+		if potentialWord.count == 1 {
 			if potentialWord == "A" {
 				return "a"
 			}
@@ -98,7 +95,7 @@ func findWord(_ phrase: String, _ spelling: Spelling, _ minWordLength: Int) -> S
 
 
 
-print("\"" + (rephrase(phrase: "igaveyouthechanceofaidingmewillingly", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
+print("\"" + (rephrase(phrase: "Thequickbrownfoxjumpedoverthelazydog", spelling: Spelling(), minWordLength: 1) ?? "-1") + "\"")
 
 
 

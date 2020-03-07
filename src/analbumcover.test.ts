@@ -349,6 +349,7 @@ describe('When using the same spelling library as the CLI', () => {
 
 
 
+// -------------------------------- [mostly?] DONE ----------------
 	// describe('when checking "An Album Cover" we get different results than having more after the word cover', () => {
 	// 	const phrase = 'An Album Cover'
 
@@ -374,7 +375,7 @@ describe('When using the same spelling library as the CLI', () => {
 
 
 
-
+// -------------------------------- [kinda] DONE ----------------
 	// describe('when checking "An Album Cover F" we get different results than having many more words after the word cover', () => {
 	// 	const phrase = 'An Album Cover F'
 
@@ -449,6 +450,7 @@ describe('When using the same spelling library as the CLI', () => {
 
 
 
+// -------------------------------- [kinda] DONE ----------------
 // 	describe('when checking "\'Poor attack, you chump! Ire!\'"', () => {
 // 		const phrase = "'Poor attack, you chump! Ire!'"
 
@@ -475,25 +477,25 @@ describe('When using the same spelling library as the CLI', () => {
 
 
 
-	// describe('when the remaining letters after finding a word is less than the min letter count, we should throw words away', () => {
-	// 	const parameters = [
-	// 		["'Poor attack, yourself", 4, 'poor attack your self'],
-	// 		["'Poor attack, yourself ", 4, 'poor attack your self'],
-	// 		["'Poor attack, yourself q", 4, 'poor attack your '],
-	// 		["'Poor attack, yourself qu", 4, 'poor attack your '],
-	// 		["'Poor attack, yourself qui", 4, 'poor attack your '],
-	// 		["'Poor attack, yourself quic", 4, 'poor attack your self '],
-	// 		["'Poor attack, yourself quick", 4, 'poor attack your self quick']
-	// 	]
+	describe('when the remaining letters after finding a word is less than the min letter count, we should throw words away', () => {
+		const parameters = [
+			["'Poor attack, yourself", 4, 'poor attack your self'],
+			["'Poor attack, yourself ", 4, 'poor attack your self'],
+			["'Poor attack, yourself q", 4, 'poor attack your '],
+			["'Poor attack, yourself qu", 4, 'poor attack your '],
+			["'Poor attack, yourself qui", 4, 'poor attack your '],
+			["'Poor attack, yourself quic", 4, 'poor attack your self '],
+			["'Poor attack, yourself quick", 4, 'poor attack your self quick']
+		]
 
-	// 	parameters.forEach(([phrase, minLetters, result]) => {
-	// 		test(`with min letters of ${minLetters}, "${phrase}" should turn into "${result}"`, async () => {
-	// 			const nodehun = await initNodehun()
-	// 			const spelling = new NodehunSpelling(nodehun)
-	// 			const rephrased = rephrase(phrase as string, spelling, minLetters as number)
+		parameters.forEach(([phrase, minLetters, result]) => {
+			test(`with min letters of ${minLetters}, "${phrase}" should turn into "${result}"`, async () => {
+				const nodehun = await initNodehun()
+				const spelling = new NodehunSpelling(nodehun)
+				const rephrased = rephrase(phrase as string, spelling, minLetters as number)
 		 
-	// 			expect(rephrased).toEqual(result)
-	// 		})
-	// 	})
-	// })
+				expect(rephrased).toEqual(result)
+			})
+		})
+	})
 })
