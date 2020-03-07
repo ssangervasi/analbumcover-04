@@ -9,8 +9,7 @@ const rephrase = (
 		return null
 	}
 
-	var rephrasing = phrase
-		.replace(/[0-9!@#$%^&*()_+-=\';:",.></?\\|`~" ]/g, "")
+	var rephrasing = phrase.replace(/[0-9!@#$%^&*()_+-=\';:",.></?\\|`~" ]/g, "")
 
 	if (rephrasing.length == 0) {
 		if (spelling.isCorrect(rephrasing.toLocaleLowerCase()) == false) {
@@ -21,14 +20,7 @@ const rephrase = (
 		    throw new RangeError("Maximum call stack size exceeded")
 		}
 		
-		return null
-		
-	} else if (rephrasing.length == 1) {
-		if (rephrasing == "A") {
-			return "a"
-		}
-
-		return null
+		return null	
 	}
 
 	var result = null
@@ -39,15 +31,10 @@ const rephrase = (
 	}
 
 	while (nextWord != null && nextWord.length > 0) {
-		let noSpaces = nextWord.replace(" ", "")
 		result += nextWord
 
-		rephrasing = rephrasing.substring(noSpaces.length, rephrasing.length)
+		rephrasing = rephrasing.substring(nextWord.replace(" ", "").length, rephrasing.length)
 		nextWord = findWord(rephrasing, spelling, minWordLength)
-
-		if (nextWord == null) {
-			return result
-		}
 	}
 	
 	return result
@@ -60,16 +47,17 @@ function findWord(phrase: string, spelling: Spelling, minWordLength: number) {
 
 	for (var i = minWordLength; i <= phrase.length; i++) {
 		let potentialWord = phrase.substring(0, i)
-		let spellingResult = spelling.isCorrect(potentialWord.toLocaleLowerCase()) && potentialWord.length > 1
+		let isSpellingCorrect = spelling.isCorrect(potentialWord.toLocaleLowerCase()) && potentialWord.length > 1
 		
+		let remainingLetters = phrase.length - potentialWord.length
+
 		if (potentialWord.length == 1) {
 			if (potentialWord == "A") {
-				return "a" + (phrase.length - 1 > 0 ? " " : "")
+				return "a" + (remainingLetters > 0 ? " " : "")
 			}
 		}
 
-		if (spellingResult) {
-			let remainingLetters = phrase.length - potentialWord.length
+		if (isSpellingCorrect) {
 			if (remainingLetters > 0 && remainingLetters < minWordLength) {
 				return ""
 			}
